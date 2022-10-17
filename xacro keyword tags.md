@@ -2,30 +2,36 @@
 ## xacro:property / property
   - used to **create 'variables'** in the xacro file
   - these 'variables' are given a name and a value. They can be used throughout their scope.
-  - syntax - `<xacro:property name="var_name" value="var_value"/>`
-  
-  - example 1 - `<xacro:property name="wheel_radius" value="0.090"/>`
-  - deployment - `<element_name attr_1="${2*wheel_radius}"/>`
   ```
-  - example 2 - <xacro:property name="pikachu_property">          # This is called a property block
-                    <origin xyz="0 0 0" rpy="0 0 0"> 
-                </xacro:property>                           
-                <xacro:insert_block name="pikachu_property"/>
+  # syntax
+  <xacro:property name="var_name" value="var_value"/>
   
-  - deployment - <element_name attr_1="${2*wheel_radius}"/>
+  # example 1
+  
+  <xacro:property name="wheel_radius" value="0.090"/>  # creating a property called "wheel_radius" with a value of "0.090"
+  <element_name attr_1="${2*wheel_radius}"/>           # using the property in code
+  
+  # example 2
+  
+  <xacro:property name="pikachu_property">          # This is called a property block
+    <origin xyz="0 0 0" rpy="0 0 0"> 
+  </xacro:property>                           
+  <xacro:insert_block name="pikachu_property"/>     # inserting a property block somewhere in the code
   ```
   
   
 ## xacro:include / include
   - used to **include other xacro files** in the current xacro file.
   - similar to #include in C++ or import in python
+  ```
+  # syntax
+  <xacro:include filename="path_of_included_file"/>`
   
-  - syntax - `<xacro:include filename="path_of_included_file"/>`
+  # usage strucure
   
-  - example - `<xacro:include filename="$(find bot_desc_pkg)/urdf/bot.xacro"/>`
-  
-  - deployment - `<xacro:macro_name_from_included_file attr_1="some_value"/>`
-  
+  <xacro:include filename="$(find bot_desc_pkg)/urdf/bot.xacro"/>  # inlcuding an external xacro file called bot.xacro
+  <xacro:macro_name_from_included_file attr_1="some_value"/>       # example usage of included file
+  ```
   - as apparent, deploment can be done as if the the contents of the icluded file are 
   present in the current xacro file, however, to avoid confusions that might arise if there are macros or
   properties with the same name in both the files, create a namespace for the included files like so
@@ -40,39 +46,48 @@
   of such format/structure in simple calls.
   - They are very similar to classes in C++ or python.
   ```
-  - syntax - <xacro:macro name="macro_name" params="param_1 param_2 *param_3"/>
-                <element_1>
-                <element_2>
-                <element_3>
-             </xacro:macro>
+  # definition syntax 
+  <xacro:macro name="macro_name" params="param_1 param_2 *param_3"/>
+    <element_1>
+    <element_2>
+    <element_3>
+  </xacro:macro>
+  
+  # deployment syntax 
+  <xacro:macro_name param_1="val_1" param_2="val_2" param_3="val_3"/>
              
-  - example - `<xacro:macro name="inertial_matrix" params="mass">
-                  <inertial>
-                    <mass value="${mass}" />
-                    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="0.5" iyz="0.0" izz="1.0" />
-                  </inertial>
-               </xacro:macro>`    
-  ```      
-  - deployment syntax - `<xacro:macro_name param_1="val_1" param_2="val_2" param_3="val_3"/>`  
-  - deployment example - `<xacro:inertial_matrix mass="1"/>`
+  # example 
   
+  <xacro:macro name="inertial_matrix" params="mass">         # defenition
+    <inertial>
+      <mass value="${mass}" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="0.5" iyz="0.0" izz="1.0" />
+    </inertial>
+  </xacro:macro>  
   
+  <xacro:inertial_matrix mass="1"/>                          # deployment
+  ```       
   
 ## xacro:insert_block / insert_block
   - used to insert a block of elements in a single line in the xacro file. 
   - If a block of code can be defined as a property, then the insert_block tag can be used to place that block of elements in     multiple places within the xacro. Needles to say, any changes in the block of elements will be reflected throughout the listing while making the urdf.
-  - syntax - `<xacro:insert_block name="block_name"/>`
   ```
-  - deployment example 1 - <xacro:property name="pikachu_property">
-                                <origin xyz="0 0 0" rpy="0 0 0"> 
-                           </xacro:property>                           
-                           <xacro:insert_block name="pikachu_property"/>
+  # syntax
+  <xacro:insert_block name="block_name"/>
+  
+  # deployment example 1
+  
+  <xacro:property name="pikachu_property">        # creating a property block of elements
+      <origin xyz="0 0 0" rpy="0 0 0"> 
+  </xacro:property>                           
+  <xacro:insert_block name="pikachu_property"/>   # inserting the property block in the code
                            
-  - deployment example 2 - <xacro:macro name="pikachu_macro" params="param_1 *block_1" >
-                                <element_1>
-                                <element_2>
-                                <xacro:insert_block name="block_1"/>
-                           </xacro:macro>
+  # deployment example 2 
+  <xacro:macro name="pikachu_macro" params="param_1 *block_1" >    # creating a macro for which a parameter is a block of elements
+      <element_1>
+      <element_2>
+      <xacro:insert_block name="block_1"/>                         # adding the block of elements(passed as parameter) in the macro
+  </xacro:macro>
 ```
 
 ## xacro:arg / arg
