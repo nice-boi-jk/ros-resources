@@ -4,9 +4,16 @@
   - these 'variables' are given a name and a value. They can be used throughout their scope.
   - syntax - `<xacro:property name="var_name" value="var_value"/>`
   
-  - example - `<xacro:property name="wheel_radius" value="0.090"/>`
-  
+  - example 1 - `<xacro:property name="wheel_radius" value="0.090"/>`
   - deployment - `<element_name attr_1="${2*wheel_radius}"/>`
+  ```
+  - example 2 - <xacro:property name="pikachu_property">          # This is called a property block
+                    <origin xyz="0 0 0" rpy="0 0 0"> 
+                </xacro:property>                           
+                <xacro:insert_block name="pikachu_property"/>
+  
+  - deployment - <element_name attr_1="${2*wheel_radius}"/>
+  ```
   
   
 # xacro:include / include
@@ -44,7 +51,7 @@
                     <mass value="${mass}" />
                     <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="0.5" iyz="0.0" izz="1.0" />
                   </inertial>
-              </xacro:macro>`    
+               </xacro:macro>`    
   ```      
   - deployment syntax - `<xacro:macro_name param_1="val_1" param_2="val_2" param_3="val_3"/>`  
   - deployment example - `<xacro:inertial_matrix mass="1"/>`
@@ -59,15 +66,42 @@
   - deployment example 1 - <xacro:property name="pikachu_property">
                                 <origin xyz="0 0 0" rpy="0 0 0"> 
                            </xacro:property>                           
-                           <xacro:insert_block name="pikachu_property"/>```
+                           <xacro:insert_block name="pikachu_property"/>
                            
   - deployment example 2 - <xacro:macro name="pikachu_macro" params="param_1 *block_1" >
                                 <element_1>
                                 <element_2>
-                                <xacro:insert_block name="block_1">
-                            </xacro:macro>
+                                <xacro:insert_block name="block_1"/>
+                           </xacro:macro>
 ```
-xacro:arg / arg
+
+# xacro:arg / arg
+  - used to create arguments for which inputs can be given from the launch file when the xacro code is initiated for implementation. 
+  - For example, the same xacro code can be used to make a urdf of a robotic arm with or with out a gripper using an argument.
+  - setting up the argument in the xacro code, full example [here.](https://answers.ros.org/question/282902/pass-parameters-to-xacro-from-launch-file-or-otherwise/)
+  - syntax - `<xacro:arg name="argument_name" default="default_value"/>`
+  - executing passing the argument value from launch file
+  - `<param name="robot_description" command="xacro_file_path" argument_name:="value"/>`
+  - Example
+  ```
+  # In xacro file
+  
+  <xacro:arg name="with_gripper" default="true"/>
+  
+  <xacro:if value="$(arg with_gripper)">
+    <xacro:include filename="gripper_desc_file_path"/>
+    # setup links and joints
+  </xacro:if>
+  
+  # In launch file
+  
+  <param name="robot_description" command="xacro_file_path" with_gripper:="false"/>
+  
+  # this will deploy the robot without the gripper. As apparent, this eliminates the need to make separate 
+  description files for changeable robot configuration.
+  ```
+  - askdfk
+  - askdjf
 xacro:element
 xacro:name
 xacro:attribute
