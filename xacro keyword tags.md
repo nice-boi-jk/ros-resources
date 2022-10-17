@@ -100,13 +100,27 @@
   # this will deploy the robot without the gripper. As apparent, this eliminates the need to make separate 
   description files for changeable robot configuration.
   ```
-  - askdfk
-  - askdjf
+## xacro:if / if
+  - This is similar to an if statement in C++ or python.
+  - The 'value' attribute of this element should evaluate to a boolean(1, 0, true, false).
+  - if true or 1, whatever is contained in the tag will be processed. if not, then they wont be.
+  ```
+  syntax - `<xacro:if value="boolean">
+              <elements>
+            </xacro:if>` 
+            
+  # The "boolean" can be any valid python expression that computes to a boolean value
+  # example, "23 in [32, 34, 45]" is actually equivalent to "false". So the tag may look like
+  
+  <xacro:if value="23 in [32, 34, 45]">
+  ```
+## xacro:unless / unless
+  - functionality is similar to `<xacro:if>`, but it responds to the boolean false or 0. 
 xacro:element
 xacro:name
 xacro:attribute
-xacro:if / if
-xacro:unless / unless
+
+
 
 xacro:eval-comments
 
