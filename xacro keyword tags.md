@@ -94,43 +94,54 @@
   - used to create arguments for which inputs can be given from the launch file when the xacro code is initiated for implementation. 
   - For example, the same xacro code can be used to make a urdf of a robotic arm with or with out a gripper using an argument.
   - setting up the argument in the xacro code, full example [here.](https://answers.ros.org/question/282902/pass-parameters-to-xacro-from-launch-file-or-otherwise/)
-  - syntax - `<xacro:arg name="argument_name" default="default_value"/>`
-  - executing passing the argument value from launch file
-  - `<param name="robot_description" command="xacro_file_path" argument_name:="value"/>`
-  - Example
   ```
+  # syntax
+  <xacro:arg name="argument_name" default="default_value"/>`
+  
+  # executing passing the argument value from launch file
+  <param name="robot_description" command="xacro_file_path" argument_name:="value"/>
+  
+  # EXAMPLE
+  
   # In xacro file
   
-  <xacro:arg name="with_gripper" default="true"/>
+  <xacro:arg name="with_gripper" default="true"/>         # creating the argument
   
   <xacro:if value="$(arg with_gripper)">
-    <xacro:include filename="gripper_desc_file_path"/>
+    <xacro:include filename="gripper_desc_file_path"/>    # using the argument in snippet
     # setup links and joints
   </xacro:if>
   
   # In launch file
   
-  <param name="robot_description" command="xacro_file_path" with_gripper:="false"/>
+  <param name="robot_description" command="xacro_file_path" with_gripper:="false"/>   # passing the argument to the xacro file
   
   # this will deploy the robot without the gripper. As apparent, this eliminates the need to make separate 
   description files for changeable robot configuration.
   ```
+  
+  
 ## xacro:if / if
   - This is similar to an if statement in C++ or python.
   - The 'value' attribute of this element should evaluate to a boolean(1, 0, true, false).
   - if true or 1, whatever is contained in the tag will be processed. if not, then they wont be.
   ```
-  syntax - `<xacro:if value="boolean">
-              <elements>
-            </xacro:if>` 
+  # syntax 
+  <xacro:if value="boolean">          # "boolean" represents the condition to process the included elements. 
+    <elements>
+  </xacro:if>` 
             
   # The "boolean" can be any valid python expression that computes to a boolean value
   # example, "23 in [32, 34, 45]" is actually equivalent to "false". So the tag may look like
   
   <xacro:if value="23 in [32, 34, 45]">
   ```
+  
+  
 ## xacro:unless / unless
   - functionality is similar to `<xacro:if>`, but it responds to the boolean false or 0.
+
+
 
 ## xacro:element
   - This allows the user to create an xml element with a dynamic name, i.e. a name given during parsing. 
