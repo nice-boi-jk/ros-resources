@@ -127,14 +127,14 @@
   - if true or 1, whatever is contained in the tag will be processed. if not, then they wont be.
   ```
   # syntax 
-  <xacro:if value="boolean">          # "boolean" represents the condition to process the included elements. 
+  <xacro:if value="${boolean}">          # "${boolean}" represents the condition to process the included elements. 
     <elements>
   </xacro:if>` 
             
   # The "boolean" can be any valid python expression that computes to a boolean value
-  # example, "23 in [32, 34, 45]" is actually equivalent to "false". So the tag may look like
+  # example, "${23 in [32, 34, 45]}" is actually equivalent to "false". So the tag may look like
   
-  <xacro:if value="23 in [32, 34, 45]">
+  <xacro:if value="${23 in [32, 34, 45]}">
   ```
   
   
