@@ -166,5 +166,6 @@
   ```
   
 ## These could be keyword tags, but not very clear on what they do
-  - xacro:eval-comments
-  - xacro:call
+  - `xacro:eval-comments`
+  - `xacro:call`
+  - `xacro:name` (probably only used as a part of the xacro:element tag syntax, idk)
