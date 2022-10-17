@@ -1,5 +1,5 @@
 
-# xacro:property / property
+## xacro:property / property
   - used to **create 'variables'** in the xacro file
   - these 'variables' are given a name and a value. They can be used throughout their scope.
   - syntax - `<xacro:property name="var_name" value="var_value"/>`
@@ -16,7 +16,7 @@
   ```
   
   
-# xacro:include / include
+## xacro:include / include
   - used to **include other xacro files** in the current xacro file.
   - similar to #include in C++ or import in python
   
@@ -35,7 +35,7 @@
   
   
   
-# xacro:macro / macro
+## xacro:macro / macro
   - macros are **used to create element blocks** that can be used to ceate multiple instances of element blocks
   of such format/structure in simple calls.
   - They are very similar to classes in C++ or python.
@@ -58,7 +58,7 @@
   
   
   
-# xacro:insert_block / insert_block
+## xacro:insert_block / insert_block
   - used to insert a block of elements in a single line in the xacro file. 
   - If a block of code can be defined as a property, then the insert_block tag can be used to place that block of elements in     multiple places within the xacro. Needles to say, any changes in the block of elements will be reflected throughout the listing while making the urdf.
   - syntax - `<xacro:insert_block name="block_name"/>`
@@ -75,7 +75,7 @@
                            </xacro:macro>
 ```
 
-# xacro:arg / arg
+## xacro:arg / arg
   - used to create arguments for which inputs can be given from the launch file when the xacro code is initiated for implementation. 
   - For example, the same xacro code can be used to make a urdf of a robotic arm with or with out a gripper using an argument.
   - setting up the argument in the xacro code, full example [here.](https://answers.ros.org/question/282902/pass-parameters-to-xacro-from-launch-file-or-otherwise/)
@@ -115,13 +115,56 @@
   <xacro:if value="23 in [32, 34, 45]">
   ```
 ## xacro:unless / unless
-  - functionality is similar to `<xacro:if>`, but it responds to the boolean false or 0. 
-xacro:element
-xacro:name
-xacro:attribute
+  - functionality is similar to `<xacro:if>`, but it responds to the boolean false or 0.
 
-
-
-xacro:eval-comments
-
-xacro:call maybe? not sure
+## xacro:element
+  - This allows the user to create an xml element with a dynamic name, i.e. a name given during parsing. 
+  ```
+  # syntax  
+  <xacro:element xacro:name="${element_name}" [attributes of the element]>
+    [content]
+  </xacro:element>
+  
+  # This creates
+  <element_name [attributes of the element]>
+    [content]
+  </element_name>
+  
+  # example
+  <xacro:property name="pokemon_name" value="pikachu">
+  <xacro:element xacro:name="${pokemon_name}" attack_1="lightning strike">
+    <trainer name="ash"/>
+  </xacro:element>
+  
+  # this should give
+  <pikachu attack_1="lightning strike">
+    <trainer name="ash"/>
+   </pikachu>   
+```
+## xacro:attribute
+  - This is used to create an attribute for an element with a dynamic name, i.e, a name determined during parsing.
+  ```
+  # syntax
+  <element_a>
+    <xacro:attribute  name="${var_attr_name}" value="${attr_value}"/>
+  </element_a>
+  
+  # This gives
+  <element_a var_attr_name="${attr_value}"/>
+  
+  # example
+  <xacro:property name="attack_type" value="lightning_power"/>
+  <pikachu atttack = "lightning strike">
+    <xacro:attribute name="${attack_type}" value="90 pts"/>
+    <trainer name="ash"/>
+  </pikachu>
+  
+  # this gives
+  <pikachu attack="lightning strike" lightning_power="90 pts" >
+    <trainer name="ash"/>
+  </pikachu>
+  ```
+  
+## These could be keyword tags, but not very clear on what they do
+  - xacro:eval-comments
+  - xacro:call
