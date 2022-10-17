@@ -32,12 +32,12 @@
   - macros are **used to create element blocks** that can be used to ceate multiple instances of element blocks
   of such format/structure in simple calls.
   - They are very similar to classes in C++ or python.
-  
-  - syntax - `<xacro:macro name="macro_name" params="param_1 param_2 *param_3"/>
+  ```
+  - syntax - <xacro:macro name="macro_name" params="param_1 param_2 *param_3"/>
                 <element_1>
                 <element_2>
                 <element_3>
-             </xacro:macro>`
+             </xacro:macro>
              
   - example - `<xacro:macro name="inertial_matrix" params="mass">
                   <inertial>
@@ -45,15 +45,28 @@
                     <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="0.5" iyz="0.0" izz="1.0" />
                   </inertial>
               </xacro:macro>`    
-              
+  ```      
   - deployment syntax - `<xacro:macro_name param_1="val_1" param_2="val_2" param_3="val_3"/>`  
   - deployment example - `<xacro:inertial_matrix mass="1"/>`
   
   
   
 # xacro:insert_block / insert_block
-  - used to insert 
-
+  - used to insert a block of elements in a single line in the xacro file. 
+  - If a block of code can be defined as a property, then the insert_block tag can be used to place that block of elements in     multiple places within the xacro. Needles to say, any changes in the block of elements will be reflected throughout the listing while making the urdf.
+  - syntax - `<xacro:insert_block name="block_name"/>`
+  ```
+  - deployment example 1 - <xacro:property name="pikachu_property">
+                                <origin xyz="0 0 0" rpy="0 0 0"> 
+                           </xacro:property>                           
+                           <xacro:insert_block name="pikachu_property"/>```
+                           
+  - deployment example 2 - <xacro:macro name="pikachu_macro" params="param_1 *block_1" >
+                                <element_1>
+                                <element_2>
+                                <xacro:insert_block name="block_1">
+                            </xacro:macro>
+```
 xacro:arg / arg
 xacro:element
 xacro:name
