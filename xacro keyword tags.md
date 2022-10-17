@@ -1,4 +1,4 @@
-xacro:property / property
+# xacro:property / property
   - used to create 'variables' in the xacro file
   - these 'variables' are given a name and a value. They can be used throughout their scope.
   
@@ -10,7 +10,7 @@ xacro:property / property
   
   
   
-xacro:include / include
+# xacro:include / include
   - used to include other xacro files in the current xacro file.
   - similar to #include in C++ or import in python
   
@@ -29,7 +29,7 @@ xacro:include / include
   
   
   
-xacro:macro / macro
+# xacro:macro / macro
   - macros are used to create element blocks that can be used to ceate multiple instances of element blocks
   of such format/structure in simple calls.
   - They are very similar to classes in C++ or python.
@@ -52,7 +52,7 @@ xacro:macro / macro
   
   
   
-xacro:insert_block / insert_block
+# xacro:insert_block / insert_block
 
 xacro:arg / arg
 xacro:element
