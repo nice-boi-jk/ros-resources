@@ -1,3 +1,9 @@
+## URDF resources
+- [urdf ros wiki](http://wiki.ros.org/urdf)
+- [xml tags and specifications for urdf](http://wiki.ros.org/urdf/XML)
+- [using urdf with gazebo](https://classic.gazebosim.org/tutorials?tut=ros_urdf&cat=connect_ros)
+## Random
+#### some tags i found in a document
 - found this in /opt/ros/melodic/include/urdf/urdfdom_compatibility.h
 - Think all the defining tags used in a urdf mainly for links and joints is listed here. Do with it what you will.
 - Also, i notice that the <plugin> tag is missing, maybe others are missing as well.
