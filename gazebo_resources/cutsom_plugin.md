@@ -1,4 +1,4 @@
-## Making a custom plugin
+## How a custom plugin works
 
 - a gazebo plugin is basically a `.so` file (complied from a c++ script) that is included in the robot model's sdf, say `model.sdf`
 - This c++ file, lets name it `gazebo_plugin.cpp`, should contain the code as to what the plugin does. For example, if the plugin is meant to 
