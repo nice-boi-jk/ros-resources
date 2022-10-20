@@ -13,3 +13,8 @@ for the same below.
 - so the general idea is this compiled file (`gazebo_plugin.so`) is loaded into gazebo as gazebo is launched. It makes gazebo subscribe to topics so it can recieve
 messages from the nodes that publish in that topic. It makes gazebo publish topoics on various aspects of the robot state or the simulation state like sensor inputs,
 camera view, etc.. things of that sort.
+
+
+## Building the .cpp file
+
+-
